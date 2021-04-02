@@ -1,12 +1,14 @@
 const {ApolloServer, gql} = require('apollo-server');
-const TeaAPI = require('./dataSources/teas')
+const TeaAPI = require('./dataSources/dataSets')
+const ProducersAPI = require('./dataSources/dataSets')
 
 const typeDefs = require('./schema')
 
 const resolvers = require('./resolvers')
 
 const dataSources = ()=>({
-    TeaAPI: new TeaAPI()
+    TeaAPI: new TeaAPI(),
+    ProducersAPI: new ProducersAPI()
 })
 const server = new ApolloServer({typeDefs, resolvers, dataSources});
 
