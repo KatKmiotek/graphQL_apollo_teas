@@ -1,0 +1,17 @@
+[{
+    "id": 1,
+    "name": "green tea",
+    "description": "lemon flavoured tea"
+},
+{
+    "id": 2,
+    "name": "breakfast tea",
+    "description": "classic tea"
+},
+{
+    "id": 3,
+    "name": "matcha tea",
+    "description": "healthy tea"
+}
+
+]
