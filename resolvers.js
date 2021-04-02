@@ -1,28 +1,11 @@
 const _ = require('lodash')
+const Query = require('./resolvers/query')
+const Tea = require('./resolvers/tea')
+const Mutation = require('./resolvers/mutation')
 
 module.exports =
 {
-    Query: {
-        teas: (parent, args, {dataSources}, info) => {
-            return dataSources.TeaAPI.getTeas(args)
-        },
-        teaById: (parent, {id}, {dataSources}, info) => {
-            return dataSources.TeaAPI.getTeaById(id)
-        },
-        producers: (parent, args, {dataSources}, info) => {
-            return dataSources.ProducersAPI.getProducers(args)
-        },
-        producerById: (parent, {id}, {dataSources}, info)=> {
-            return dataSources.ProducersAPI.getProducerById(id)
-        }
-    },
-    Tea: {
-        producer: (tea, args, {dataSources}) => {
-            const producers = dataSources.ProducersAPI.getProducers()
-            const returned = producers.find((producer) => {
-                return tea.producer.id === producer.id
-            })
-            return returned;
-        }
-    }
+    Query,
+    Tea,
+    Mutation
 }

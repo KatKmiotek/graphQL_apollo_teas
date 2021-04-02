@@ -17,16 +17,27 @@ type Query {
     ): [Producer],
     producerById(id: ID): Producer
 }
+type Mutation {
+    addToFavourites(id: ID): Tea,
+    addNewTea(tea: teaInput): Tea
+}
 type Producer{
     id: ID!
     name: String!
     location: String
     teas: [Tea]
 }
+input teaInput {
+    name: String!
+    description: String
+    price: Int
+    favourite: Boolean
+}
 type Tea {
     id: ID!
     name: String!
     description: String
     price: Int
+    favourite: Boolean
     producer: Producer
 }`

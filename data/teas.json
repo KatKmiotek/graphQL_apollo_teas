@@ -3,6 +3,7 @@
     "name": "green tea",
     "description": "lemon flavoured tea",
     "price": 2.99,
+    "favourite": false,
     "producer": {
         "id": 1,
         "name": "Dilmah",
@@ -27,6 +28,7 @@
     "name": "breakfast tea",
     "description": "classic tea",
     "price": 2,
+    "favourite": false,
     "producer": {
         "id": 1,
         "name": "Dilmah",
@@ -50,6 +52,7 @@
     "name": "matcha tea",
     "description": "healthy tea",
     "price": 1.5,
+    "favourite": false,
     "producer": {
         "id": 1,
         "name": "No Label",
