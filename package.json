@@ -12,7 +12,11 @@
   "dependencies": {
     "apollo-datasource": "^0.7.0",
     "apollo-server": "2.12",
+    "apollo-server-express": "^2.22.2",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
     "lodash": "4.17",
+    "mongoose": "^5.12.3",
     "nodemon": "2.0"
   }
 }
