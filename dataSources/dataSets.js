@@ -1,5 +1,6 @@
 const teas = require('../data/teas.json')
 const producers = require('../data/producers')
+// using json as data source
 
 const {DataSource } = require('apollo-datasource')
 const _ = require('lodash')
