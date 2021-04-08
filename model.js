@@ -1,19 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const ProducerSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    location: {
-        type: String,
-        required: false
-    },
-    // teas: {
-    //     type: [TeaSchema]
-    // }
-})
 
 const TeaSchema = new Schema({
     name: {
@@ -28,10 +15,25 @@ const TeaSchema = new Schema({
         type: Number,
         required: false
     },
-    producer: {
-        type: ProducerSchema
+    producerId: {
+        type: String
     }
 })
+const ProducerSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    teas: [TeaSchema]
+})
+
+
+
+
 
 
 const Producer = mongoose.model('Producer', ProducerSchema)

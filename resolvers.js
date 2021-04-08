@@ -4,7 +4,7 @@ const _ = require('lodash')
 
 const resolvers = {
     Query: {
-        teas (parent, args, context, info) {
+        teas: async (parent, args, context, info) => {
             return Tea.find()
                 .then (tea => {
                     return _.filter(tea, args)
@@ -13,9 +13,10 @@ const resolvers = {
                     console.error(err)
                 })
         },
-        teaById (parent, args, context, info) {
+        teaById: async (parent, args, context, info) => {
             return Tea.findOne({ _id: args.id })
                 .then (tea => {
+                    console.log(tea);
                     return { ...tea._doc }
                 })
                 .catch (err => {
@@ -25,7 +26,7 @@ const resolvers = {
         producers (parent, args, context, info) {
             return Producer.find()
                 .then (producer => {
-                    return producer.map (producer => ({ ...producer._doc }))
+                    return _.filter(producer, args)
                 })
                 .catch (err => {
                     console.error(err)
@@ -42,35 +43,44 @@ const resolvers = {
         },
     },
     Mutation: {
-        addTea (parent, args, context, info) {
-            const { name, description, price } = args
-            const teaObj = new Tea({
-                name,
-                description,
-                price,
-            })
-            return teaObj.save()
-                .then (result => {
-                    return { ...result._doc }
-                })
-                .catch (err => {
-                    console.error(err)
-                })
-        },
-        addProducer (parent, args, context, info) {
-            const { name, location } = args
-            const producerObj = new Producer({
-                name,
-                location
-            })
-            return producerObj.save()
-                .then (result => {
-                    return { ...result._doc }
-                })
-                .catch (err => {
-                    console.error(err)
-                })
-        },
+        addProducer: async (
+            _, { producerInput: { name, location } }
+          ) => {
+            const newProducer = new Producer({
+              name,
+              location
+            });
+            await newProducer.save();
+            return newProducer;
+          },
+          addTea: async (
+            _, { teaInput: { name, description, price, producerId } }
+          ) => {
+            const newTea = new Tea({
+              name,
+              description,
+              price,
+            });
+            await newTea.save();
+            const producer = await Producer.findById(producerId)
+            producer.teas.push(newTea)
+            producer.save();
+            return newTea, producer;
+          },
+        updateTea: async (
+            _, { teaUpdate: { name, description, price, id } }
+          ) => {
+              const foundTea = await Tea.findOneAndUpdate(id, {
+                  $set: {
+                      //to work on: paramater not provided defaults to null! 
+                      name,
+                      description,
+                      price
+                  }
+              }).exec();
+              foundTea.save();
+              return foundTea;
+          }
     },
 }
 

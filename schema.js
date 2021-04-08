@@ -4,37 +4,53 @@ module.exports =
 gql `
 type Query {
     teas(
-    id: String
+    id: ID
     name: String
     description: String
     price: Float
-    ): [Tea],
-    teaById(id: String): Tea
+    producerId: String
+    ): [Tea!]!,
+    teaById(id: ID): Tea
     producers(
-    id: String
+    id: ID
     name: String
     location: String
+    teas: [teaInput]
     ): [Producer],
-    producerById(id: String): Producer
+    producerById(id: ID): Producer
 }
 type Mutation {
-    addTea(name: String, description: String, price: Float): Tea
-    addProducer(name: String, location: String): Producer
+    addTea(teaInput: teaInput): Tea
+    addProducer(producerInput: producerInput): Producer
+    updateTea(teaUpdate: teaUpdate): Tea
 }
 type Producer{
-    _id: String!
+    id: ID!
     name: String!
-    location: String
+    location: String!
+    teas: [Tea]
 }
 type Tea {
-    _id: String!
+    id: ID!
     name: String!
-    description: String
-    price: Float
-    producer: [Producer]
+    description: String!
+    price: Float!
 }
 input producerInput {
     name: String!
-    location: String
+    location: String!
+    teas: [teaInput]
+}
+input teaInput {
+    producerId: String!
+    name: String!
+    description: String!
+    price: Float!
+}
+input teaUpdate {
+    id: ID!
+    name: String
+    description: String
+    price: Float
 }
 `
