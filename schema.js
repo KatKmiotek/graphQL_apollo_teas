@@ -23,13 +23,14 @@ type Mutation {
     addTea(teaInput: teaInput): Tea
     addProducer(producerInput: producerInput): Producer
     updateTea(id: ID! args: teaUpdate): Tea!
-    deleteTea(id: ID!): Tea
+    deleteTea(id: ID!): Boolean
+    deleteProducer(id: ID!): Boolean
 }
 type Producer{
     id: ID!
     name: String!
     location: String!
-    teas: [Tea]
+    teas: [Tea]!
 }
 type Tea {
     id: ID!

@@ -92,7 +92,14 @@ const resolvers = {
             if(!removedTea){
                 console.log("There was a probnlem with deleting this tea");
             }
-            return removedTea
+            return true
+        },
+        deleteProducer: async (parent, {id}) => {
+            const removedProducer = await Producer.findByIdAndRemove(id).exec()
+            if(!removedProducer){
+                console.log("There was a probnlem with deleting this producer");
+            }
+            return true
         }
     },
     
