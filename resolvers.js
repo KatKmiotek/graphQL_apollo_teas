@@ -67,21 +67,35 @@ const resolvers = {
             producer.save();
             return newTea, producer;
           },
-        updateTea: async (
-            _, { teaUpdate: { name, description, price, id } }
-          ) => {
-              const foundTea = await Tea.findOneAndUpdate(id, {
-                  $set: {
-                      //to work on: paramater not provided defaults to null! 
-                      name,
-                      description,
-                      price
-                  }
-              }).exec();
-              foundTea.save();
-              return foundTea;
-          }
+        updateTea: async ( parent, {id, args}) => {
+            console.log(args);
+            const tea = await Tea.findByIdAndUpdate(
+                {
+                    _id: id
+                },
+                {
+                    $set: {
+                        name: args.name,
+                        description: args.description,
+                        price: args.price
+                    }
+                },
+                {
+                   new: true 
+                }
+            )
+            console.log(tea);
+            return tea
+        },
+        deleteTea: async (parent, {id}) => {
+            const removedTea = await Tea.findByIdAndRemove(id).exec()
+            if(!removedTea){
+                console.log("There was a probnlem with deleting this tea");
+            }
+            return removedTea
+        }
     },
+    
 }
 
 module.exports = resolvers

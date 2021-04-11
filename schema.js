@@ -22,7 +22,8 @@ type Query {
 type Mutation {
     addTea(teaInput: teaInput): Tea
     addProducer(producerInput: producerInput): Producer
-    updateTea(teaUpdate: teaUpdate): Tea
+    updateTea(id: ID! args: teaUpdate): Tea!
+    deleteTea(id: ID!): Tea
 }
 type Producer{
     id: ID!
@@ -48,7 +49,6 @@ input teaInput {
     price: Float!
 }
 input teaUpdate {
-    id: ID!
     name: String
     description: String
     price: Float
