@@ -27,7 +27,7 @@ const httpServer = createServer(app)
 server.installSubscriptionHandlers(httpServer)
 
 mongoose
-.connect(`mongodb+srv://${process.env.mongoUserName}:${process.env.mongoUserPassword}@cluster0.s5jz7.mongodb.net/m${process.env.mongoDatabase}?retryWrites=true&w=majority`)
+.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.s5jz7.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`)
 .then( (res) => {
     httpServer.listen(3000, () => {
         console.log('connected! on server http://localhost:3000/graphql')
