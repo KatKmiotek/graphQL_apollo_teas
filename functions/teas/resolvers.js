@@ -1,5 +1,5 @@
 const { Producer, Tea} = require('./model')
-const pubsub = require('./pubsub')
+// const pubsub = require('./pubsub')
 const _ = require('lodash')
 
 const resolvers = {
