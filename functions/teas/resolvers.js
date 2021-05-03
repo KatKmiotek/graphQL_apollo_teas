@@ -65,7 +65,7 @@ const resolvers = {
             const producer = await Producer.findById(producerId)
             producer.teas.push(newTea)
             producer.save();
-            return newTea, producer;
+            return newTea;
           },
         updateTea: async ( parent, {id, args}) => {
             console.log(args);
@@ -75,6 +75,7 @@ const resolvers = {
                 },
                 {
                     $set: {
+                        // args
                         name: args.name,
                         description: args.description,
                         price: args.price
