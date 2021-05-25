@@ -9,7 +9,7 @@ type Query {
     description: String
     price: Float
     producerId: String
-    ): [Tea!]!,
+    ): [Tea]!,
     teaById(id: ID): Tea
     producers(
     id: ID

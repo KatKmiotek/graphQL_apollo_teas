@@ -12,7 +12,11 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   playground: true,
-  introspection: true
+  introspection: true,
+  formatError: (err) => ({
+    message: err.originalError.message || err.message,
+    code: err.originalError.code || 500
+  }),
 })
 const httpServer = createServer(app)
 

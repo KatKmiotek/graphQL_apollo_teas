@@ -1,6 +1,6 @@
 const { Producer, Tea} = require('./model')
-// const pubsub = require('./pubsub')
 const _ = require('lodash')
+const { ApolloError } = require('apollo-server-lambda')
 
 const resolvers = {
     Query: {
@@ -10,7 +10,8 @@ const resolvers = {
                     return _.filter(tea, args)
                 })
                 .catch (err => {
-                    console.error(err)
+                    // console.error(err)
+                    return new ApolloError(err)
                 })
         },
         teaById: async (parent, args, context, info) => {
@@ -20,7 +21,8 @@ const resolvers = {
                     return { ...tea._doc }
                 })
                 .catch (err => {
-                    console.error(err)
+                    // console.error(err)
+                    return new ApolloError(err)
                 })
         },
         producers (parent, args, context, info) {
@@ -38,7 +40,8 @@ const resolvers = {
                     return { ...producer._doc }
                 })
                 .catch (err => {
-                    console.error(err)
+                    return new ApolloError(err)
+                    // console.error(err)
                 })
         },
     },
